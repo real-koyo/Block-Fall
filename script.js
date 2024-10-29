@@ -1,72 +1,45 @@
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
 
-let Size = 24.5;
+let Size = 25;
 canvas.width = 255;
 canvas.height = 510;
+let positionX = 0;
+let positionY = 0;
+//let colors = ["Crimson", "Orange", "DodgerBlue", "BlueViolet", "LightSeaGreen", "DeepPink"];
 
-let colors = ["Crimson", "Orange", "DodgerBlue", "BlueViolet", "LightSeaGreen", "DeepPink"];
+const shape1 = [[0,0], [0,1], [1,1], [1,0], "Crimson"];
+const shape2 = [[0,0], [0,1], [0,2], [0,3], "Orange"];
+const shape3 = [[0,0], [0,1], [0,2], [1,2], "DodgerBlue"];
+const shape4 = [[1,0], [1,1], [1,2], [0,2], "BlueViolet"];
+const shape5 = [[0,1], [1,1], [1,0], [2,0], "LightSeaGreen"];
+const shape6 = [[0,0], [1,0], [1,1], [2,1], "DeepPink"];
 
-const shapes = ["4", "4", "4", ]
+//Creating different blocks
+function createShape( position, pxSize) {
+    ctx.fillStyle = position[4];
+    ctx.strokeStyle = 'Wheat';
+    ctx.lineWidth = 1;
+    for (let i = 0; i < position.length -1; i++) {
+      let cubex = position[i][0];
+      let cubey = position[i][1];
+      ctx.strokeRect((cubex * pxSize), (cubey * pxSize), pxSize, pxSize);
+      ctx.fillRect((cubex * pxSize), (cubey * pxSize), pxSize, pxSize);
+    };
+  };
 
-//genrating 4x4 square shapes
-function Shape1 ( positionX, positionY, pxSize, color){
-    ctx.fillStyle = color;
-    ctx.fillRect( positionX, positionY, pxSize, pxSize);
-    ctx.fillRect( (positionX + pxSize) + 0.5, positionY, pxSize, pxSize);
-    ctx.fillRect( positionX, (positionY + pxSize) + 0.5, pxSize, pxSize);
-    ctx.fillRect( (positionX + pxSize) + 0.5 , (positionY + pxSize) + 0.5, pxSize, pxSize);
-}
-
-function Shape2 ( positionX, positionY, pxSize, color){
-    ctx.fillStyle = color;
-    ctx.fillRect( positionX, positionY + pxSize + 0.5, pxSize, pxSize);
-    ctx.fillRect( positionX + pxSize + 0.5, positionY + pxSize + 0.5, pxSize, pxSize);
-    ctx.fillRect( positionX + pxSize + 0.5 + pxSize + 0.5, positionY + pxSize + 0.5, pxSize, pxSize);
-    ctx.fillRect( positionX + pxSize + 0.5 + pxSize + 0.5 + pxSize + 0.5, positionY + pxSize + 0.5, pxSize, pxSize);
+//createShape(shape6, Size);
+// Changing each block Position
+function changePosition(posX, posY, Shape){
+    let fshape = Shape;
+    for (let i = 0; i < fshape.length - 1; i++ ){
+        fshape[i][0] = (fshape[i][0]) + posX;
+        fshape[i][1] = (fshape[i][1]) + posY;
+    };
+    createShape(fshape, Size);
     
-}
+};
 
-function Shape3 ( positionX, positionY, pxSize, color){
-    ctx.fillStyle = color;
-    ctx.fillRect( positionX, positionY , pxSize, pxSize);
-    ctx.fillRect( positionX, positionY + pxSize + 0.5, pxSize, pxSize);
-    ctx.fillRect( positionX, positionY + pxSize + 0.5 + pxSize + 0.5, pxSize, pxSize);
-    ctx.fillRect( positionX + pxSize + 0.5, positionY + pxSize + 0.5 + pxSize + 0.5, pxSize, pxSize);
-}
+changePosition(positionX, positionY, shape5);
 
-function Shapem3 ( positionX, positionY, pxSize, color){
-    ctx.fillStyle = color;
-    ctx.fillRect( positionX, positionY , pxSize, pxSize);
-    ctx.fillRect( positionX, positionY + pxSize + 0.5, pxSize, pxSize);
-    ctx.fillRect( positionX, positionY + pxSize + 0.5 + pxSize + 0.5, pxSize, pxSize);
-    ctx.fillRect( positionX - (pxSize + 0.5), positionY + pxSize + 0.5 + pxSize + 0.5, pxSize, pxSize);
-}
 
-function Shape5 ( positionX, positionY, pxSize, color){
-    ctx.fillStyle = color;
-    ctx.fillRect( positionX + pxSize + 0.5 + pxSize + 0.5, positionY , pxSize, pxSize);
-    ctx.fillRect( positionX + pxSize + 0.5, positionY, pxSize, pxSize);
-    ctx.fillRect( positionX + pxSize + 0.5, positionY + pxSize + 0.5, pxSize, pxSize);
-    ctx.fillRect( positionX, positionY + pxSize + 0.5, pxSize, pxSize);
-    console.log(color);
-}
-
-function Shapem5 ( positionX, positionY, pxSize, color){
-    ctx.fillStyle = color;
-    ctx.fillRect( positionX - (pxSize + 0.5 + pxSize + 0.5), positionY , pxSize, pxSize);
-    ctx.fillRect( positionX - (pxSize + 0.5), positionY, pxSize, pxSize);
-    ctx.fillRect( positionX - (pxSize + 0.5), positionY + pxSize + 0.5, pxSize, pxSize);
-    ctx.fillRect( positionX, positionY + pxSize + 0.5, pxSize, pxSize);
-    console.log(color);
-}
-
-//Rotation
-function createShape(p1, p2, p3, p4, pxSize, color) {
-    ctx.fillStyle = color;
-    for (let i = 0; i < 3; i++){
-        ctx.fillRect( p1, p2 , pxSize, pxSize);
-    }
-}
-
-createShape(0, 25, 0, 0, Size, colors[1]);
