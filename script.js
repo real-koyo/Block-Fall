@@ -1,12 +1,17 @@
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
 
-let Size = 25;
-canvas.width = 255;
-canvas.height = 510;
-let positionX = 0;
-let positionY = 0;
-//let colors = ["Crimson", "Orange", "DodgerBlue", "BlueViolet", "LightSeaGreen", "DeepPink"];
+var Size = 25;
+canvas.width = 250;
+canvas.height = 500;
+var positionX = 0;
+var positionY = 0;
+var speed = 1;
+var newPositionY = 0;
+var test = 0;
+var time = 300;
+
+console.log(canvas.width/Size - 1);
 
 const shape1 = [[0,0], [0,1], [1,1], [1,0], "Crimson"];
 const shape2 = [[0,0], [0,1], [0,2], [0,3], "Orange"];
@@ -14,6 +19,10 @@ const shape3 = [[0,0], [0,1], [0,2], [1,2], "DodgerBlue"];
 const shape4 = [[1,0], [1,1], [1,2], [0,2], "BlueViolet"];
 const shape5 = [[0,1], [1,1], [1,0], [2,0], "LightSeaGreen"];
 const shape6 = [[0,0], [1,0], [1,1], [2,1], "DeepPink"];
+const Shapes = [shape1, shape3, shape4, shape5, shape6];
+
+//Mirror Shapes
+const shape2M = [[0,0], [1,0], [2,0], [3,0], "Orange"];
 
 //Creating different blocks
 function createShape( position, pxSize) {
@@ -28,18 +37,80 @@ function createShape( position, pxSize) {
     };
   };
 
-//createShape(shape6, Size);
 // Changing each block Position
-function changePosition(posX, posY, Shape){
-    let fshape = Shape;
-    for (let i = 0; i < fshape.length - 1; i++ ){
-        fshape[i][0] = (fshape[i][0]) + posX;
-        fshape[i][1] = (fshape[i][1]) + posY;
-    };
-    createShape(fshape, Size);
+// function changePosition(posX, posY, Shape){
+//     let fshape = Shape;
+//     for (let i = 0; i < fshape.length - 1; i++ ){
+//         fshape[i][0] = (fshape[i][0]) + posX;
+//         fshape[i][1] = (fshape[i][1]) + posY;
+//     };
+//     createShape(fshape, Size);
     
+// };
+
+function changePosition(posX, posY, shape) {
+  // Create a new array to hold the modified coordinates
+  let fshape = [];
+  
+  // Iterate through each coordinate in the shape
+  for (let i = 0; i < shape.length - 1; i++) {
+      // Create a new coordinate by adding posX and posY
+      fshape[i] = [shape[i][0] + posX, shape[i][1] + posY];
+  }
+  
+  // Add the color to the new shape
+  fshape.push(shape[shape.length - 1]); // Push the color at the end
+
+  // Call createShape with the modified coordinates
+  createShape(fshape, Size);
 };
 
-changePosition(positionX, positionY, shape5);
+function clearCanvas(test, tst) {
+  ctx.clearRect(test, tst, canvas.width, canvas.height);
+};
 
+//changePosition(positionX, newPositionY, Shapes[0]);
+
+function position(){
+    clearCanvas(positionX, newPositionY);
+    if (newPositionY + speed <= canvas.height/Size - 1) {
+      console.log(positionY + speed);
+    changePosition(positionX, newPositionY + speed, Shapes[test]);
+    newPositionY = newPositionY + speed;
+    }
+    else{
+      changePosition(positionX, newPositionY, Shapes[test]);
+      newPositionY = 0;
+      clearCanvas(positionX, newPositionY);
+      
+      if (test <= Shapes.length - 1) {
+      test = Math.floor(Math.random() * 5);
+      console.log(test);
+    }
+    
+};
+};
+
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'ArrowLeft') {
+    time = 50;
+    positionX -= 1;
+  } else if (event.key === 'ArrowRight') {
+    time = 50;
+    positionX += 1;
+  }
+  if (event.key === 'ArrowDown') {
+    time = 50;
+    speed = 5;};
+});
+
+document.addEventListener('keyup', function(event) {
+  if (event.key === 'ArrowDown') {
+    time = 50;
+    speed = 1;
+  }
+});
+
+
+setInterval(position, time);
 
