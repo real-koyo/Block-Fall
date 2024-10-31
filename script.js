@@ -11,8 +11,6 @@ var newPositionY = 0;
 var test = 0;
 var time = 300;
 
-console.log(canvas.width/Size - 1);
-
 const shape1 = [[0,0], [0,1], [1,1], [1,0], "Crimson"];
 const shape2 = [[0,0], [0,1], [0,2], [0,3], "Orange"];
 const shape3 = [[0,0], [0,1], [0,2], [1,2], "DodgerBlue"];
@@ -72,20 +70,19 @@ function clearCanvas(test, tst) {
 //changePosition(positionX, newPositionY, Shapes[0]);
 
 function position(){
+  let newshape = Shapes[test];
     clearCanvas(positionX, newPositionY);
     if (newPositionY + speed <= canvas.height/Size - 1) {
-      console.log(positionY + speed);
-    changePosition(positionX, newPositionY + speed, Shapes[test]);
+    changePosition(positionX, newPositionY + speed, newshape);
     newPositionY = newPositionY + speed;
-    }
+    console.log(Shapes[0][0]);
+    } 
     else{
       changePosition(positionX, newPositionY, Shapes[test]);
       newPositionY = 0;
       clearCanvas(positionX, newPositionY);
-      
       if (test <= Shapes.length - 1) {
       test = Math.floor(Math.random() * 5);
-      console.log(test);
     }
     
 };
