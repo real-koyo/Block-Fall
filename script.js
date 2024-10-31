@@ -67,23 +67,41 @@ function clearCanvas(test, tst) {
   ctx.clearRect(test, tst, canvas.width, canvas.height);
 };
 
+
+function finalPosition(lastpot) {
+  let nlastpot = lastpot;
+  console.log(nlastpot);
+}
 //changePosition(positionX, newPositionY, Shapes[0]);
 
-function position(){
+function position(lastpot){
+  let nshape = [];
+  console.log(nshape);
   let newshape = Shapes[test];
     clearCanvas(positionX, newPositionY);
     if (newPositionY + speed <= canvas.height/Size - 1) {
     changePosition(positionX, newPositionY + speed, newshape);
     newPositionY = newPositionY + speed;
-    console.log(Shapes[0][0]);
-    } 
-    else{
-      changePosition(positionX, newPositionY, Shapes[test]);
-      newPositionY = 0;
-      clearCanvas(positionX, newPositionY);
-      if (test <= Shapes.length - 1) {
-      test = Math.floor(Math.random() * 5);
+    for (let i = 0; i < newshape.length - 1 ; i++) {
+      // Create a new coordinate by adding posX and posY
+      nshape[i] = [newshape[i][0], newshape[i][1] + newPositionY]; 
     }
+    
+  nshape.push(newshape[newshape.length - 1]);
+  console.log("position", nshape[0][1], "canvas", canvas.height/Size - 1); // Push the color at the end
+    } 
+    else if ( nshape[0][1] >= canvas.height/Size - 1) {
+        console.log("its working");
+        lastpot(nshape);
+    }
+    else{
+      // changePosition(positionX, newPositionY, Shapes[test]);
+      // newPositionY = 0;
+      // clearCanvas(positionX, newPositionY);
+      // if (test <= Shapes.length - 1) {
+      // test = Math.floor(Math.random() * 5);
+      console.log(newshape[i][1] + newPositionY);
+    // }
     
 };
 };
