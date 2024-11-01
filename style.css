@@ -1,3 +1,9 @@
 canvas{
     background-color: blue;
 }
+
+.container{
+    background-color: brown;
+ position: absolute;
+top: 50%s;
+}

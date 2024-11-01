@@ -1,6 +1,7 @@
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
 
+//Declaring Different Properties
 var Size = 25;
 canvas.width = 250;
 canvas.height = 500;
@@ -10,13 +11,19 @@ var speed = 1;
 var newPositionY = 0;
 var test = 0;
 var time = 300;
+let lastShape = null;
 
-const shape1 = [[0,0], [0,1], [1,1], [1,0], "Crimson"];
-const shape2 = [[0,0], [0,1], [0,2], [0,3], "Orange"];
-const shape3 = [[0,0], [0,1], [0,2], [1,2], "DodgerBlue"];
-const shape4 = [[1,0], [1,1], [1,2], [0,2], "BlueViolet"];
-const shape5 = [[0,1], [1,1], [1,0], [2,0], "LightSeaGreen"];
-const shape6 = [[0,0], [1,0], [1,1], [2,1], "DeepPink"];
+
+// Shapes declaration
+const shape1 = [[0,-1], [0,0], [1,0], [1,-1], "Crimson"];
+const shape2 = [[0,-3], [0,-2], [0,-1], [0,0], "Orange"];
+const shape3 = [[0,-2], [0,-1], [0,0], [1,0], "DodgerBlue"];
+const shape4 = [[1,-2], [1,-1], [1,0], [0,0], "BlueViolet"];
+const shape5 = [[0,-2], [1,-2], [1,-1], [2,-1], "LightSeaGreen"];
+const shape6 = [[0,1], [1,1], [1,0], [2,0], "DeepPink"];
+
+
+
 const Shapes = [shape1, shape3, shape4, shape5, shape6];
 
 //Mirror Shapes
@@ -35,21 +42,11 @@ function createShape( position, pxSize) {
     };
   };
 
-// Changing each block Position
-// function changePosition(posX, posY, Shape){
-//     let fshape = Shape;
-//     for (let i = 0; i < fshape.length - 1; i++ ){
-//         fshape[i][0] = (fshape[i][0]) + posX;
-//         fshape[i][1] = (fshape[i][1]) + posY;
-//     };
-//     createShape(fshape, Size);
-    
-// };
-
+//function for creating block based on the updated positon
 function changePosition(posX, posY, shape) {
   // Create a new array to hold the modified coordinates
   let fshape = [];
-  
+
   // Iterate through each coordinate in the shape
   for (let i = 0; i < shape.length - 1; i++) {
       // Create a new coordinate by adding posX and posY
@@ -61,49 +58,74 @@ function changePosition(posX, posY, shape) {
 
   // Call createShape with the modified coordinates
   createShape(fshape, Size);
+  return fshape;
 };
+//Clear Canvas function
+// function clearCanvas( position, pxSize) {
+//   for (let i = 0; i < position.length -1; i++) {
+//     let cubex = position[i][0];
+//     let cubey = position[i][1];
+//     ctx.clearRect((cubex * pxSize), (cubey * pxSize), pxSize, pxSize);
+//   };
+// };
 
-function clearCanvas(test, tst) {
-  ctx.clearRect(test, tst, canvas.width, canvas.height);
-};
-
-
+function clearCanvas(position, pxSize) {
+  // Check if position is valid
+  if (position && position.length > 0) {
+    for (let i = 0; i < position.length - 1; i++) {
+      let cubex = position[i][0];
+      let cubey = position[i][1];
+      
+      // Clear the specific rectangle where the shape was
+      ctx.clearRect((cubex * pxSize), (cubey * pxSize), pxSize, pxSize);
+    }
+  }
+}
+//storing the last postion of a block.
 function finalPosition(lastpot) {
   let nlastpot = lastpot;
-  console.log(nlastpot);
+  changePosition(nlastpot[0][0], nlastpot[0][1] -4, nlastpot);
+  console.log(nlastpot[0][0], nlastpot[0][1] - 4, nlastpot);
 }
-//changePosition(positionX, newPositionY, Shapes[0]);
-
-function position(lastpot){
+//Updating and changing the position of a block
+function position(){
   let nshape = [];
-  console.log(nshape);
   let newshape = Shapes[test];
-    clearCanvas(positionX, newPositionY);
-    if (newPositionY + speed <= canvas.height/Size - 1) {
-    changePosition(positionX, newPositionY + speed, newshape);
-    newPositionY = newPositionY + speed;
-    for (let i = 0; i < newshape.length - 1 ; i++) {
-      // Create a new coordinate by adding posX and posY
-      nshape[i] = [newshape[i][0], newshape[i][1] + newPositionY]; 
-    }
+
+
+
+  if (lastShape) {
+    clearCanvas(lastShape, Size);
+  }
+
+  // Check if the shape can move down
+  if (newPositionY + speed <= canvas.height/Size - 1) {
+    // Move the shape down
+    let movedShape = changePosition(positionX, newPositionY + speed, newshape);
+    newPositionY += speed;
     
+    // Store the current shape for next clearing
+    if(newPositionY + speed < canvas.height/Size - 1){
+      lastShape = movedShape;
+    }
+
+  }
+
+
+else {
+
+  for (let i = 0; i < newshape.length - 1; i++) {
+      nshape[i] = [newshape[positionX][0], newshape[positionX][1] + newPositionY];
+  }
   nshape.push(newshape[newshape.length - 1]);
-  console.log("position", nshape[0][1], "canvas", canvas.height/Size - 1); // Push the color at the end
-    } 
-    else if ( nshape[0][1] >= canvas.height/Size - 1) {
-        console.log("its working");
-        lastpot(nshape);
-    }
-    else{
-      // changePosition(positionX, newPositionY, Shapes[test]);
-      // newPositionY = 0;
-      // clearCanvas(positionX, newPositionY);
-      // if (test <= Shapes.length - 1) {
-      // test = Math.floor(Math.random() * 5);
-      console.log(newshape[i][1] + newPositionY);
-    // }
-    
-};
+  finalPosition(nshape);
+  newPositionY = 0;
+  //clearCanvas(nshape, Size);
+  
+  // Select a new random shape
+  test = Math.floor(Math.random() * Shapes.length);
+}
+
 };
 
 document.addEventListener('keydown', function(event) {
