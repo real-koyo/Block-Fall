@@ -1,51 +1,43 @@
-const canvas = document.querySelector("#canvass");
+const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
 
+var xpositon = 1;
+var ypositon = 1;
 var Size = 25;
-canvas.width = 250;
-canvas.height = 500;
-var positionX = 0;
-var positionY = 0;
-var speed = 1;
-var newPositionY = 0;
-var test = 0;
-var time = 300;
 
-const shape1 = [[0,0], [0,1], [1,1], [1,0], "Crimson"];
-const shape2 = [[0,0], [0,1], [0,2], [0,3], "Orange"];
-const shape3 = [[0,0], [0,1], [0,2], [1,2], "DodgerBlue"];
-const shape4 = [[1,0], [1,1], [1,2], [0,2], "BlueViolet"];
-const shape5 = [[0,1], [1,1], [1,0], [2,0], "LightSeaGreen"];
-const shape6 = [[0,0], [1,0], [1,1], [2,1], "DeepPink"];
 
-const Shapes = [shape1, shape3, shape4, shape5, shape6];
+//Each shape cordinations
+const shape1 = [[0,-1], [0,0], [1,0], [1,-1], "Crimson"];
 
-//Mirror Shapes
-const shape2M = [[0,0], [1,0], [2,0], [3,0], "Orange"];
-
-//Creating different blocks
+//Function to create a new block
 function createShape( position, pxSize) {
-    ctx.fillStyle = position[4];
-    ctx.strokeStyle = 'Wheat';
-    ctx.lineWidth = 1;
-    for (let i = 0; i < position.length -1; i++) {
-      let cubex = position[i][0];
-      let cubey = position[i][1];
-      ctx.strokeRect((cubex * pxSize), (cubey * pxSize), pxSize, pxSize);
-      ctx.fillRect((cubex * pxSize), (cubey * pxSize), pxSize, pxSize);
-    };
+  ctx.fillStyle = position[4];
+  ctx.strokeStyle = 'Wheat';
+  ctx.lineWidth = 1;
+  for (let i = 0; i < position.length -1; i++) {
+    let cubex = position[i][0];
+    let cubey = position[i][1];
+    ctx.strokeRect((cubex * pxSize), (cubey * pxSize), pxSize, pxSize);
+    ctx.fillRect((cubex * pxSize), (cubey * pxSize), pxSize, pxSize);
   };
+};
 
-  function createShape2( position, pxSize) {
-    //ctx.fillStyle = position[4];
-    //ctx.strokeStyle = 'Wheat';
-    //ctx.lineWidth = 1;
-    for (let i = 0; i < position.length -1; i++) {
-      let cubex = position[i][0];
-      let cubey = position[i][1];
-      ctx.clearRect((cubex * pxSize), (cubey * pxSize), pxSize, pxSize);
-    };
-  };
 
-  createShape(shape1, Size);
-  createShape2(shape1, Size);
+function changePosition(posX, posY, shape) {
+  // Create a new array to hold the modified coordinates
+  let fshape = [];
+
+  // Iterate through each coordinate in the shape
+  for (let i = 0; i < shape.length - 1; i++) {
+      // Create a new coordinate by adding posX and posY
+      fshape[i] = [shape[i][0] + posX, shape[i][1] + posY];
+  }
+  
+  // Add the color to the new shape
+  fshape.push(shape[shape.length - 1]); // Push the color at the end
+  // Call createShape with the modified coordinates
+  createShape(fshape, Size);
+  return fshape;
+};
+
+changePosition(xpositon, ypositon, shape1);
