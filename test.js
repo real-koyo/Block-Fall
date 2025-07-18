@@ -8,83 +8,115 @@ canvas.height = 500;
 //Declaring Universal Properties
 var xpositon = 1;
 var ypositon = 1;
-var Size = 25;
+var Size = 25; // size of each block 
 var time = 500
 var lineWidth = 1;
 var backgroundColor = 'Wheat';
+var color = "crimson";
+var currentShape = [];
+var currentColor = "red";
 
 //Declaring Final Positions of all the blocks
 var finalAllBlocks = [];
 
 //Each shape cordinations
-const shape1 = [[[0,-1], [0,0], [1,0], [1,-1]], "Crimson", 1];
-const shape2 = [[[0,-1], [0,0], [1,0], [1,-1]], "Crimson", 1];
-const shape3 = [[[0,-1], [0,0], [1,0], [1,-1]], "Crimson", 1];
-const shape4 = [[[0,-1], [0,0], [1,0], [1,-1]], "Crimson", 1];
-const shape5 = [[[0,-1], [0,0], [1,0], [1,-1]], "Crimson", 1];
-const shape6 = [[[0,-1], [0,0], [1,0], [1,-1]], "Crimson", 1];
+var shape1 = [[[0,-1], [0,0], [1,0], [1,-1]], "Crimson"];
+const shape2 = [[[0,-3], [0,-2], [0,-1], [0,0]], "Orange"];
+const shape3 = [[[0,-2], [0,-1], [0,0], [1,0]], "DodgerBlue"];
+const shape4 = [[[1,-2], [1,-1], [1,0], [0,0]], "BlueViolet"];
+const shape5 = [[[0,-2], [1,-2], [1,-1], [2,-1]], "LightSeaGreen"];
+const shape6 = [[[0,1], [1,1], [1,0], [2,0]], "DeepPink"];
 
 const Shapes = [shape1, shape3, shape4, shape5, shape6];
 
-//Function to create a new block
-function createShape( position, pxSize) {
-  //Add's the color to the new shape
-  ctx.fillStyle = position[4];
+//Function to create a square
+function createSquare(x, y, color) {
+  ctx.fillStyle = color;
   ctx.strokeStyle = backgroundColor;
-  ctx.lineWidth = 1;
-  for (let i = 0; i < position.length -1; i++) {
-    let cubex = position[i][0];
-    let cubey = position[i][1];
-    ctx.strokeRect((cubex * pxSize), (cubey * pxSize), pxSize, pxSize);
-    ctx.fillRect((cubex * pxSize), (cubey * pxSize), pxSize, pxSize);
-  };
-};
-
-function genrateRandomShape(){
-  let randomNumber = Math.floor(Math.random() * Shapes.length);
-  let newShape = Shapes[randomNumber];
-  return newShape;
-}
-
-
-function createInitialtPosition(){
- let center = (canvas.width/2)/Size;
- let currentShape = genrateRandomShape();
- 
- for (let i = 0; i < currentShape[0].length - 1; i++) {
-  let cubex = currentShape[0][i][0];
-  let cubey = currentShape[0][i][1];
-  let cubexPosition = (cubex + center) * Size;
-
-}
-
-createInitialtPosition();
-createCurrentPosition();
-function checkNextPosition(){
-
-};
-
-
-
-// Updates the frame
-setInterval(checkNextPosition, time);
-
-
-// // function changePosition(posX, posY, shape) {
-// //   // Create a new array to hold the modified coordinates
-// //   let fshape = [];
-
-// //   // Iterate through each coordinate in the shape
-// //   for (let i = 0; i < shape.length - 1; i++) {
-// //       // Create a new coordinate by adding posX and posY
-// //       fshape[i] = [shape[i][0] + posX, shape[i][1] + posY];
-// //   }
+  ctx.lineWidth = lineWidth;
   
-// //   // Add the color to the new shape
-// //   fshape.push(shape[shape.length - 1]); // Push the color at the end
-// //   // Call createShape with the modified coordinates
-// //   createShape(fshape, Size);
-// //   return fshape;
-// // };
+    const px = x * Size;
+  const py = y * Size;
 
-// changePosition(xpositon, ypositon, shape1);
+  ctx.fillRect(x*Size, y*Size, Size, Size);
+  ctx.strokeRect(px, py, Size, Size); 
+
+};
+
+//Function to create a block
+function createBlock(shape, color) {
+  for (var i = 0; i < shape.length; i++) {
+      createSquare(shape[i][0], shape[i][1], color);
+    };
+};
+
+//Function to create a Shaepe
+function createNewShape() {
+  var shapeData = Shapes[Math.floor(Math.random() * Shapes.length)];
+  var coords = shapeData[0];
+  var centerX = Math.floor(canvas.width / 2 / Size);
+  
+  // Stors the actual osition on the canvas
+  var placedShape = [];
+ 
+  for (var i = 0; i < coords.length; i++) {
+      var x = coords[i][0] + centerX - 1;
+      var y = coords[i][1] + 1;
+      placedShape.push([x, y]);
+    }
+
+    currentShape = placedShape;
+    currentColor = shapeData[1];
+
+    //need to check on this
+  createBlock(currentShape, currentColor);
+  }
+
+  //Function to clear the canvas completely
+function clearCanvas() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+//Function to create all the final shapes
+function createallfinalshaepe() {
+  for (var i = 0; i < finalAllBlocks.length; i++) {
+   var square = finalAllBlocks[i];
+   createSquare(square[0][0], square[0][1], square[1]); 
+  }
+}
+
+//Function for fall down
+
+function falldown() {
+ clearCanvas();
+ createallfinalshaepe();
+
+ var reachedBottm = false;
+
+ for (var i = 0; i < currentShape.length; i++) {
+      if ((currentShape[i][1] + 1) * Size >= canvas.height) {
+        reachedBottm = true;
+        break;
+      }
+    }
+if (reachedBottm) {
+      for (var i = 0; i < currentShape.length; i++) {
+        finalAllBlocks.push([currentShape[i], currentColor]);
+      }
+      createNewShape();
+      return;
+    }
+
+    for (var i = 0; i < currentShape.length; i++) {
+      currentShape[i][1] += 1;
+    }
+
+    createBlock(currentShape, currentColor);
+  }
+
+// Start game
+  createNewShape();
+  setInterval(falldown, time);
+
+
+
