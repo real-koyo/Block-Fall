@@ -9,7 +9,7 @@ canvas.height = 500;
 var xpositon = 1;
 var ypositon = 1;
 var Size = 25; // size of each block 
-var time = 500
+let time = 500
 var lineWidth = 1;
 var backgroundColor = 'Wheat';
 var color = "crimson";
@@ -92,6 +92,18 @@ function falldown() {
  createallfinalshaepe();
 
  var reachedBottm = false;
+ 
+//function to detact bottom shape if any
+  for (var i = 0; i < currentShape.length; i++) {
+     for (var j = 0; j < finalAllBlocks.length; j++) {
+    if ((currentShape[i][0]) === finalAllBlocks[j][0][0] &&
+        (currentShape[i][1] + 1) === finalAllBlocks[j][0][1]) {
+      reachedBottm = true;
+      break;
+    }
+  }
+  if (reachedBottm) break;
+    }
 
  for (var i = 0; i < currentShape.length; i++) {
       if ((currentShape[i][1] + 1) * Size >= canvas.height) {
@@ -102,6 +114,7 @@ function falldown() {
 if (reachedBottm) {
       for (var i = 0; i < currentShape.length; i++) {
         finalAllBlocks.push([currentShape[i], currentColor]);
+      console.log(finalAllBlocks);
       }
       createNewShape();
       return;
@@ -115,8 +128,18 @@ if (reachedBottm) {
   }
 
 // Start game
-  createNewShape();
-  setInterval(falldown, time);
+function start() {
+    createNewShape();
+  start = setInterval(falldown, time);
+}
 
 
 
+function pause() {
+  clearInterval(start); // Stop the old interval
+}
+function resume() {
+  time = 500; // or any updated time
+  start = setInterval(falldown, time); // Start a new interval with updated time
+  console.log("Game resumed with time:", time);
+}
