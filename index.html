@@ -5,17 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Block Fall | Epicescapism.com</title>
     <link rel="stylesheet" href="style.css" >
+    <link rel="stylesheet" href="button.css" >
 </head>
 <body>
-    <button onclick="pause()">Pause</button>
-    <button onclick="start()">Start</button>
-    <div class="container">
-    <canvas id="canvas" style="background-color: Wheat;"></canvas>
+    <h1>Block Fall</h1>
+    <div  id="startScreen">
+        <button onclick="start()" id="startGameBtn"> <span class="button_nav">Start</span></button>
     </div>
-    <button onclick="resume()">left</button>
-    <button>Store</button>
-    <button>Right</button>
-    <!-- <canvas id="canvass" style="background-color: Wheat;"></canvas> -->
-    <script src="test.js"></script>
+    <div class="container" id="gameContent" style="display: none;">
+    <div class="sysbtcontainer">
+        <button onclick="pause()"> <span class="button_nav">Pause</span></button>
+        <button onclick="resume()"> <span class="button_nav">Restart</span></button>
+        <div class="score">500</div>
+    </div>
+
+    <div class="canvasContainer">
+        <canvas id="canvas3" style="background-color: #21214b;"></canvas>
+        <canvas id="canvas1" style="background-color: #21214b;"></canvas>
+        <canvas id="canvas2" style="background-color: #21214b;"></canvas>
+    </div>
+
+
+    <div class="navbtcontainer">
+        <button>  <span class="button_nav"> < </span></button>
+        <button><span class="button_nav"> V </span></button>
+        <button>  <span class="button_nav"> > </span></button>
+        <button>  <span class="button_nav"> O </span></button>
+    </div>
+
+    </div>
+
+    <script>
+    // Show canvases when button is pressed
+    document.getElementById("startGameBtn").addEventListener("click", function() {
+      document.getElementById("startScreen").style.display = "none";   // hide start button
+      document.getElementById("gameContent").style.display = "block"; // show canvases + controls
+      start(); // optional: auto-start game when button is pressed
+    });
+  </script>
+    <script src="script.js"></script>
+    <script src="bag.js"></script>
+    <script src="store.js"></script>
 </body>
 </html>

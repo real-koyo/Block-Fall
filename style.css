@@ -1,9 +1,55 @@
-canvas{
-    background-color: blue;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.container{
-    background-color: brown;
- position: absolute;
-top: 50%s;
+html, body { height: 100%; }
+
+body {
+  background: #191920;               
+  color: #fff;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;        
+  align-items: center;            
+  height: 100vh;
+  margin: 0;                 
+}
+
+.container {
+  display: flex;
+  flex-direction: column;        
+  align-items: center;
+  gap: 1rem;                      
+}
+
+.sysbtcontainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0.5rem;                      
+}
+
+.canvasContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0.5rem;                      
+}
+
+canvas {
+  background-color: wheat;
+margin-top: 1rem;
+margin-bottom: 1rem;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;                
 }
