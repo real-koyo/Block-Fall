@@ -12,6 +12,7 @@ body {
   color: #fff;
   font-family: Arial, sans-serif;
   display: flex;
+  flex-direction: column;
   justify-content: center;        
   align-items: center;            
   height: 100vh;
@@ -52,4 +53,16 @@ margin-bottom: 1rem;
   display: flex;
   justify-content: center;
   gap: 0.75rem;                
+}
+
+.score{
+  font-size:larger;
+  font-weight: bolder;
+  margin: 1rem;
+}
+
+.heading{
+  font-size: x-large;
+  font-weight: bolder;
+  margin: 0.5rem;
 }

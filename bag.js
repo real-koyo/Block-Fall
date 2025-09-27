@@ -3,7 +3,7 @@ const ctx2 = canvas2.getContext("2d");
 
 Size2 = 10;
 
-canvas2.height = 5 * Size2 * 7;
+canvas2.height = 5 * Size2 * 8;
 canvas2.width = Size2 * 5;
 
 
@@ -29,7 +29,7 @@ function createBlock1(shape, color) {
 };
 
 function display (){
-    console.log("i can display it here");
+
     for (i = 0; i < Bag.length; i++){
         createNewShape2(i);
 
@@ -47,7 +47,7 @@ function createNewShape2(i) {
     var shapeData = Bag[i];
     var coords = shapeData[0];
     var centerX = Math.floor(canvas2.width / 2 / Size2);
-        console.log("I am shape data" + storedShape);
+
     
     // Stors the actual osition on the canvas
     var placedShape = [];

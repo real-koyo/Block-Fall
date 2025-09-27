@@ -8,15 +8,25 @@
     <link rel="stylesheet" href="button.css" >
 </head>
 <body>
-    <h1>Block Fall</h1>
+    <header><h1 class="heading">Block Fall</h1></header>
+
+    <main>
     <div  id="startScreen">
-        <button onclick="start()" id="startGameBtn"> <span class="button_nav">Start</span></button>
+        <button id="startGameBtn"> <span class="button_nav">Start</span></button>
+    </div>
+        <div  id="resumeButton">
+        <!-- <button id="resumeGameButton"> <span class="button_nav">resume</span></button> -->
+    </div>
+        <div  id="gameOver" style="display: none;">
+        <p class="heading">Game Over</p>
+        <div class="score" >Score: <span id="score2">0</span></div>
     </div>
     <div class="container" id="gameContent" style="display: none;">
     <div class="sysbtcontainer">
-        <button onclick="pause()"> <span class="button_nav">Pause</span></button>
-        <button onclick="resume()"> <span class="button_nav">Restart</span></button>
-        <div class="score">500</div>
+        <button id="pauseToggle"> <span class="button_nav">Pause</span></button>
+        <button id="resumeGameButton" style="display: none"> <span class="button_nav">resume</span></button>
+        <!-- <button onclick="resume()"> <span class="button_nav">Restart</span></button> -->
+        <div class="score" >Score: <span id="score">0</span></div>
     </div>
 
     <div class="canvasContainer">
@@ -27,24 +37,23 @@
 
 
     <div class="navbtcontainer">
-        <button>  <span class="button_nav"> < </span></button>
-        <button><span class="button_nav"> V </span></button>
-        <button>  <span class="button_nav"> > </span></button>
-        <button>  <span class="button_nav"> O </span></button>
+        <button id="left">  <span class="button_nav"> < </span></button>
+        <button id="down"><span class="button_nav"> V </span></button>
+        <button id="Right">  <span class="button_nav"> > </span></button>
+        <button id="Rotate">  <span class="button_nav"> Q </span></button>
+        <button id="store">  <span class="button_nav"> O </span></button>
     </div>
 
     </div>
-
-    <script>
-    // Show canvases when button is pressed
-    document.getElementById("startGameBtn").addEventListener("click", function() {
-      document.getElementById("startScreen").style.display = "none";   // hide start button
-      document.getElementById("gameContent").style.display = "block"; // show canvases + controls
-      start(); // optional: auto-start game when button is pressed
-    });
-  </script>
-    <script src="script.js"></script>
+    </main>
+    <script src="rotation.js"></script>
+    <script src="shapes.js"></script>
+    <script src="lineclear.js"></script>
+    <script src="gamemachanics.js"></script>
+    <script src="controler.js"></script>
+    <script src="canvas.js"></script>
     <script src="bag.js"></script>
     <script src="store.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
