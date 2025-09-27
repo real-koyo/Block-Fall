@@ -20,8 +20,8 @@ var canMoveLeft = false;
 var canMoveRight = false;
 
 var storedShape = [];
-var storedShape = null;     // shape data (coords + color)
-var hasSwapped = false;     // block multiple swaps per drop
+var storedShape = null;     
+var hasSwapped = false;   
 
  var reachedTop = false;
 

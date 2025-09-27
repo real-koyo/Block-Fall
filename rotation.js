@@ -1,6 +1,5 @@
 // rotate function
 function rotate90Clockwise(shape) {
-  // choose pivot (first block of shape)
   var center = shape[0];
   var rotated = [];
 

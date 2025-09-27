@@ -11,13 +11,13 @@ if (gameInterval !== null) {
 
 }
 function pause() {
-  if (gameInterval === null) return;   // already paused
+  if (gameInterval === null) return; 
   clearInterval(gameInterval);
   gameInterval = null;
 }
 
 function resume() {
   time = 500; // or any updated time
-  if (gameInterval !== null) return;   // already running
+  if (gameInterval !== null) return;  
   gameInterval = setInterval(falldown, time);
 }

@@ -1,5 +1,4 @@
 button {
-  /* Variables */
   --button_radius: 0.75em;
   --button_color: #262425;
   --button_outline_color: #ffbf00;
@@ -24,12 +23,10 @@ button {
 }
 
 button:hover .button_nav{
-  /* Pull the button upwards when hovered */
   transform: translateY(-0.33em);
 }
 
 button:active .button_nav {
-  /* Push the button downwards when pressed */
   transform: translateY(0);
 }
 
