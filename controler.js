@@ -32,6 +32,7 @@ document.addEventListener('keydown', function(event) {
   else if (event.code === 'Space') {
   event.preventDefault();
   handleSwap();
+    document.getElementById('movemet').play()
 }
 });
 
@@ -56,6 +57,7 @@ function handleSwap() {
     createNewShape3(0);             
     hasSwapped = true;
   }
+    document.getElementById('movemet').play()
 }
 
 function copyCoords(shape) {
@@ -63,6 +65,7 @@ function copyCoords(shape) {
   for (var i = 0; i < shape.length; i++) {
     newShape.push([shape[i][0], shape[i][1]]);
   }
+  document.getElementById('movemet').play()
   return newShape;
 }
 
@@ -78,10 +81,14 @@ function copyCoords(shape) {
          for (var i = 0; i < currentShape.length; i++){
       currentShape[i][0] -= 1;
       }
-   } }
+   }
+  document.getElementById('movemet').play()
+  }
 
 
-function rotate(){  currentShape = rotate90Clockwise(currentShape);}
+function rotate(){  currentShape = rotate90Clockwise(currentShape);
+  document.getElementById('swap').play()
+}
 
 function right(){
      for (var i = 0; i < currentShape.length; i++) {
@@ -95,6 +102,7 @@ function right(){
       currentShape[i][0] += 1;
       }
    }
+     document.getElementById('movemet').play()
   }
 
 

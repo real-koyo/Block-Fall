@@ -12,7 +12,7 @@
 
     <main>
     <div  id="startScreen">
-        <button id="startGameBtn"> <span class="button_nav">Start</span></button>
+        <button id="startGameBtn"> <span class="button_nav"><img alt="Start" src="/icons/play-button.png" width="30" height="30"><span> Start<span></span></button>
     </div>
         <div  id="resumeButton">
         <!-- <button id="resumeGameButton"> <span class="button_nav">resume</span></button> -->
@@ -23,8 +23,11 @@
     </div>
     <div class="container" id="gameContent" style="display: none;">
     <div class="sysbtcontainer">
-        <button id="pauseToggle"> <span class="button_nav">Pause</span></button>
-        <button id="resumeGameButton" style="display: none"> <span class="button_nav">resume</span></button>
+
+        <button id="pauseToggle"> <span class="button_nav"><img alt="pause" src="/icons/pause-button.png" width="30" height="30"></span></button>
+        <button id="resumeGameButton" style="display: none"> <span class="button_nav"><img alt="resume" src="/icons/play-button.png" width="30" height="30"></span></button>
+        <button id="soundOff"> <span class="button_nav"><img alt="pause" src="/icons/speaker-off.png" width="30" height="30"></span></button>
+        <button id="soundOn" style="display: none"> <span class="button_nav"><img alt="resume" src="/icons/speaker.png" width="30" height="30"></span></button>
         <!-- <button onclick="resume()"> <span class="button_nav">Restart</span></button> -->
         <div class="score" >Score: <span id="score">0</span></div>
     </div>
@@ -37,13 +40,16 @@
 
 
     <div class="navbtcontainer">
-        <button id="left">  <span class="button_nav"> < </span></button>
-        <button id="down"><span class="button_nav"> V </span></button>
-        <button id="store">  <span class="button_nav"> O </span></button>
-        <button id="Rotate">  <span class="button_nav"> R </span></button>
-        <button id="Right">  <span class="button_nav"> > </span></button>
+        <button id="left">  <span class="button_nav"> <img alt="Move Left" src="/icons/previous-button.png" width="30" height="30"> </span></button>
+        <button id="down"><span class="button_nav"> <img alt="Move Shpaes down" src="/icons/fall-down.png" width="30" height="30"> </span></button>
+        <button id="store">  <span class="button_nav"> <img alt="Swape Shapes" src="/icons/card-exchange.png" width="30" height="30"> </span></button>
+        <button id="Rotate">  <span class="button_nav"><img alt="Rotate shape" src="/icons/clockwise-rotation.png" width="30" height="30"> </span></button>
+        <button id="Right">  <span class="button_nav"><img alt="Move Right" src="/icons/next-button.png" width="30" height="30"></span></button>
     </div>
-
+    <audio id="bgm" src="icons/tetris-theme-korobeiniki-arranged-for-piano-186249.mp3" loop></audio>
+        <audio id="movemet" src="icons/retro-select-236670.mp3" ></audio>
+        <audio id="swap" src="icons/retro-blip-2-236668.mp3" ></audio>
+        <audio id="achivement" src="icons/achievement-video-game-type-1-230515.mp3" ></audio>
     </div>
     </main>
     <script src="rotation.js"></script>
